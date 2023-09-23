@@ -4,8 +4,8 @@ import (
 	"os"
 	"github.com/gin-gonic/gin"
 	
-	"challenge_ratelimited_modak/api/router"
-	"fmt"
+	"modak_ratelimit/api/router"
+	"modak_ratelimit/internal/app/utils/logger"
 )
 
 //Router exposes the endpoint of the application.
@@ -36,7 +36,7 @@ func runServer() {
 	}
 
 	if err := Router.Run(":"+port); err != nil {
-		fmt.Println("error running server: " , err)
+		logger.Error("Error running server: " , err)
 	}
 
 }
