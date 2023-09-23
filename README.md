@@ -22,14 +22,19 @@ For store data it use KVS called Redis (https://redis.io/). It is a NoSQL databa
 
 - Example of answer
 In case the rate limit has not been reached
+
+```json
 {
     "isallowed": true,
-    "error": ""
+    "error": {
+        "id": 0,
+        "messaje": ""
+    }
 }
+```
 
 
-
-
+<br/>
 
 ## Development
 - Go version: 1.18
@@ -55,6 +60,8 @@ In case the rate limit has not been reached
 <br/>
 
 ## Installation
+
+
 
 - Install Docker (https://www.docker.com)
 

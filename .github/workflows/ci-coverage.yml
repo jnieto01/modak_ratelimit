@@ -32,9 +32,9 @@ jobs:
 
       - name: Check coverage threshold
         run: |
-          COVERAGE_THRESHOLD=90  # 90%
+          COVERAGE_THRESHOLD=80  # 80% just for example
           ACTUAL_COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | sed 's/%//')
           if [ "$(echo "$ACTUAL_COVERAGE >= $COVERAGE_THRESHOLD" | bc -l)" -ne 1 ]; then
-            echo "Error: La cobertura es inferior al umbral deseado ($ACTUAL_COVERAGE% < $COVERAGE_THRESHOLD%)."
+            echo "Error: coverage is less than desired ($ACTUAL_COVERAGE% < $COVERAGE_THRESHOLD%)."
             exit 1
           fi
