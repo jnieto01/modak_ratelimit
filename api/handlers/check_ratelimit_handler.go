@@ -3,21 +3,22 @@ package handlers
 import (
 	"net/http"
 	"github.com/gin-gonic/gin"
+
+	"modak_ratelimit/internal/app/entity"
+	"modak_ratelimit/internal/app/i18n"
 )
 
-type AnswerRateLimit struct {
-	IsAllowed bool `json:"isallowed"`
-	Error string `json:"error"`
-}
 
 func CheckRateLimit(c *gin.Context) {
 	
-	result := AnswerRateLimit{
+	response := entity.Response{
 		IsAllowed: true,
-		Error: "",
+		Error: i18n.NotError,
 	}
+
+
 	
-	c.JSON(http.StatusOK, result)
+	c.JSON(http.StatusOK, response)
 
 }
 

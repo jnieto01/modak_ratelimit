@@ -5,15 +5,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"gopkg.in/go-playground/validator.v9"
+
 	"modak_ratelimit/internal/app/utils/logger"
+	"modak_ratelimit/internal/app/entity"
+	"modak_ratelimit/internal/app/i18n"
 
 )
 
-type InputData struct {
-	FlowID string `json:"flow_id" validate:"required,max=50,alphanum"`
-    UserID string `json:"user_id" validate:"required,max=50,alphanum"`
-    Type  string `json:"type" validate:"required,max=20,alphanum"`
-}
 
 
 func CheckRateLimit() gin.HandlerFunc {
@@ -29,22 +27,28 @@ func CheckRateLimit() gin.HandlerFunc {
 		}
 		*/
 
-
-		data:= InputData{
-			FlowID: "",
-			UserID: "",
-			Type: "",
-		}
-
 		v := validator.New()
 
-		data.FlowID = c.Query("flow_id")
-		data.UserID = c.Query("user_id")
-		data.Type = c.Query("type")
-				
+		data:= entity.InputData{
+			FlowID: c.Query("flow_id"),
+			UserID: c.Query("user_id"),
+			Type: c.Query("type"),
+			Lang: c.Query("lang"),
+		}
+
+		// language internationalization 
+		i18n.SetLanguage(data.Lang)
+
+		// Validation of input data 
 		if err := v.Struct(data); err != nil {
 			logger.Error("Middleware error:", err)
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error(),})
+
+			response := entity.Response{
+				IsAllowed: false,
+				Error: i18n.ErrorMiddlewareQueryParams,
+			}
+				
+			c.JSON(http.StatusBadRequest, response)
 			c.Abort() 
 			return
 		}
