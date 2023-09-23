@@ -3,6 +3,7 @@ package router
 import (
  "testing"
  "github.com/stretchr/testify/assert"
+
  "net/http"
  "net/http/httptest"
  "github.com/gin-gonic/gin"
@@ -10,7 +11,6 @@ import (
 )
 
 //********** Unit Test ***********************
-
 
 // Happy Path
 func TestServerRunning(t *testing.T){
@@ -28,6 +28,7 @@ func TestServerRunning(t *testing.T){
 	if err != nil {
 		t.Errorf("Error with the body: %v", err)
 	}
+	
 		
 	responseString := string(body)
 	assert.Equal(t, "Server is running well", responseString, "Default valut must be: Server is running well" )	

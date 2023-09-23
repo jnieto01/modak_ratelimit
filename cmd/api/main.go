@@ -1,7 +1,7 @@
 package main
 
 import (
-	"challenge_ratelimited_modak/cmd/api/server"
+	"modak_ratelimit/cmd/api/server"
 )
 
 func main() {
