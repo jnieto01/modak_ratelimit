@@ -1,21 +1,21 @@
 package kvs
 
 import (
-	/*
+	
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
 
 	"modak_ratelimit/config"
 	"modak_ratelimit/internal/app/entity"
-	*/
+	
 )
 
 
 // Happy Path
 // This unit test requires redis docker to be running
-/*
-func Skip_TestConnectToRedis(t *testing.T) {
+
+func TestConnectToRedis(t *testing.T) {
 
 	err := config.LoadConfig()
 	assert.Nil(t, err)
@@ -33,7 +33,7 @@ func Skip_TestConnectToRedis(t *testing.T) {
 
 }
 
-func Skip_TestSetAndGetWithTTL(t *testing.T) {
+func TestSetAndGetWithTTL(t *testing.T) {
 
 	err := config.LoadConfig()
 	assert.Nil(t, err)
@@ -61,7 +61,7 @@ func Skip_TestSetAndGetWithTTL(t *testing.T) {
 	assert.Equal(t, value, retrievedValue, "It is no the same value")
 }
 
-func Skip_TestDeleteKey(t *testing.T) {
+func TestDeleteKey(t *testing.T) {
 
 	err := config.LoadConfig()
 	assert.Nil(t, err)
@@ -90,7 +90,7 @@ func Skip_TestDeleteKey(t *testing.T) {
 	assert.Equal(t, err.Error(), "redis: nil", "Must get an error")
 }
 
-func Skip_TestGetExp(t *testing.T) {
+func TestGetExp(t *testing.T) {
 
 	err := config.LoadConfig()
 	assert.Nil(t, err)
@@ -122,7 +122,7 @@ func Skip_TestGetExp(t *testing.T) {
 
 }
 
-func Skip_TestSetExp(t *testing.T) {
+func TestSetExp(t *testing.T) {
 	err := config.LoadConfig()
 	assert.Nil(t, err)
 
@@ -157,7 +157,7 @@ func Skip_TestSetExp(t *testing.T) {
 
 }
 
-func Skip_TestExists(t *testing.T) {
+func TestExists(t *testing.T) {
 	err := config.LoadConfig()
 	assert.Nil(t, err)
 
@@ -185,7 +185,7 @@ func Skip_TestExists(t *testing.T) {
 
 }
 
-func Skip_TestNotExists(t *testing.T) {
+func TestNotExists(t *testing.T) {
 	err := config.LoadConfig()
 	assert.Nil(t, err)
 
@@ -206,7 +206,7 @@ func Skip_TestNotExists(t *testing.T) {
 	assert.False(t, status)
 }
 
-func Skip_TestIntegration(t *testing.T) {
+func TestIntegration(t *testing.T) {
 
 	err := config.LoadConfig()
 	assert.Nil(t, err)
@@ -239,4 +239,3 @@ func Skip_TestIntegration(t *testing.T) {
 	assert.False(t, status, "the key still exists in redis")
 
 }
-*/
