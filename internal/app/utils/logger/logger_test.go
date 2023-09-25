@@ -1,59 +1,60 @@
 package logger
 
 import (
-	"testing"
+
 	"github.com/stretchr/testify/assert"
+	"testing"
 
-	"errors"
 	"bytes"
-	"os"
+	"errors"
 	"github.com/sirupsen/logrus"
+	"os"
 )
-
-
 
 func TestInitialization(t *testing.T) {
 
-    setupOut()
+	setupOut()
 
-    if os.Getenv("GO_ENV") == "PROD" {
-        assert.Equal(t, logrus.InfoLevel, log.GetLevel())
-    } else {
-        assert.Equal(t, logrus.DebugLevel, log.GetLevel())
-    }
+	if os.Getenv("GO_ENV") == "PROD" {
+		assert.Equal(t, logrus.InfoLevel, log.GetLevel())
+	} else {
+		assert.Equal(t, logrus.DebugLevel, log.GetLevel())
+	}
 
-    formatter, ok := log.Formatter.(*logrus.TextFormatter)
-    assert.True(t, ok)
-    assert.True(t, formatter.FullTimestamp)
-    assert.Equal(t, "2006-01-02 15:04:05", formatter.TimestampFormat)
+	formatter, ok := log.Formatter.(*logrus.TextFormatter)
+	assert.True(t, ok)
+	assert.True(t, formatter.FullTimestamp)
+	assert.Equal(t, "2006-01-02 15:04:05", formatter.TimestampFormat)
 }
-
 
 func TestSetupOut(t *testing.T) {
 
-    setupOut()
+	setupOut()
 
-    if os.Getenv("GO_ENV") == "PROD" {
-        assert.Equal(t, logrus.InfoLevel, log.GetLevel())
-    } else {
-        assert.Equal(t, logrus.DebugLevel, log.GetLevel())
-    }
+	if os.Getenv("GO_ENV") == "PROD" {
+		assert.Equal(t, logrus.InfoLevel, log.GetLevel())
+	} else {
+		assert.Equal(t, logrus.DebugLevel, log.GetLevel())
+	}
 
-    formatter, ok := log.Formatter.(*logrus.TextFormatter)
-    assert.True(t, ok)
-    assert.True(t, formatter.FullTimestamp)
-    assert.Equal(t, "2006-01-02 15:04:05", formatter.TimestampFormat)
+	formatter, ok := log.Formatter.(*logrus.TextFormatter)
+	assert.True(t, ok)
+	assert.True(t, formatter.FullTimestamp)
+	assert.Equal(t, "2006-01-02 15:04:05", formatter.TimestampFormat)
+
 }
 
 func TestInfo(t *testing.T) {
 
-    oldOutput := log.Out
-    defer func() { log.Out = oldOutput }()
+
+	oldOutput := log.Out
+	defer func() { log.Out = oldOutput }()
 
 	var buf bytes.Buffer
-    log.Out = &buf
+	log.Out = &buf
 
-    Info("This is an info message")
+	Info("This is an info message")
+
 
 	logOutput := buf.String()
 	assert.Contains(t, logOutput, "This is an info message")
@@ -63,14 +64,14 @@ func TestInfo(t *testing.T) {
 
 func TestError(t *testing.T) {
 
-    oldOutput := log.Out
-    defer func() { log.Out = oldOutput }()
+	oldOutput := log.Out
+	defer func() { log.Out = oldOutput }()
 
 	var buf bytes.Buffer
-    log.Out = &buf
+	log.Out = &buf
 
-    err := errors.New("Test error")
-    Error("This is an error message", err)
+	err := errors.New("Test error")
+	Error("This is an error message", err)
 
 
 	logOutput := buf.String()
@@ -81,24 +82,24 @@ func TestError(t *testing.T) {
 func TestIntegration(t *testing.T) {
 
 	var buf bytes.Buffer
-    log.Out = &buf
+	log.Out = &buf
+
 
 	Info("Testing started")
 
 	logOutput := buf.String()
 	assert.Contains(t, logOutput, "Testing started")
 
-
 	File := "archivo.txt"
-    file, err := os.Open(File)
-    if err != nil {
+	file, err := os.Open(File)
+	if err != nil {
 		Error("Fail to open file", err)
 		logOutput = buf.String()
 		assert.Contains(t, logOutput, "Fail to open file")
-    }else{
+	} else {
 		assert.Contains(t, logOutput, "Testing started")
 	}
-    defer file.Close() 
+	defer file.Close()
 
 }
 

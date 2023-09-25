@@ -3,7 +3,11 @@ FROM golang:latest
 
 # Environment variables
 ENV PORT="8080" \
-    GO_ENV="DEV" 
+    GO_ENV="DEV" \
+    REDIS_ADDR="localhost:6379" \
+    REDIS_PASSWORD="" \
+    REDIS_DB="0"
+
 
 
 # Set the working directory in the container

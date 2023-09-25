@@ -1,28 +1,31 @@
 package logger
 
 import (
-	"os"
+
 	"github.com/sirupsen/logrus"
+	"os"
 )
 
 var (
-	log = logrus.New()	
+	log = logrus.New()
 )
 
 func init() {
 	setupOut()
 }
 
-func setupOut(){
+
+func setupOut() {
 	log.Out = os.Stdout
 	level := logrus.DebugLevel
-	if os.Getenv("GO_ENV")=="PROD"{
+	if os.Getenv("GO_ENV") == "PROD" {
+
 		level = logrus.InfoLevel
 	}
 
 	log.SetLevel(level)
 	log.Formatter = &logrus.TextFormatter{
-		FullTimestamp: true,
+		FullTimestamp:   true,
 		TimestampFormat: "2006-01-02 15:04:05",
 	}
 }

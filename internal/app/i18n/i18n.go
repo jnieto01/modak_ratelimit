@@ -5,18 +5,16 @@ import (
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"golang.org/x/text/language"
 	"path/filepath"
-	"strings"
-
+	"os"
 
 	"modak_ratelimit/internal/app/entity"
 	"modak_ratelimit/internal/app/utils/logger"
+
 )
 
 
 
 var (	
-
-	basePath = "modak_ratelimit"
 
 	supportedLang =map[string]language.Tag {
 		"en": language.English,
@@ -25,11 +23,19 @@ var (
 
 	MessageMissing = entity.DataError{ ID: -1, Message: "MessageMissing key is not in the file of language" }
 
-	// general error (0 - 10)
-	NotError = entity.DataError{ ID: 0, Message: "" }
+	Minutes = " (Minutes) "
+    Seconds = " (Seconds)"
 
-	// communicacitions error (10-20)
+	// general error (0 - 9)
+	NotError = entity.DataError{ ID: 0, Message: "" }
+	InternalServerError = entity.DataError{ ID: 1, Message: "Internal server error"}  
+
+	// communicacitions error (10-19)
 	ErrorMiddlewareQueryParams =  entity.DataError{ ID: 10, Message: "Error in the request parameters" }
+
+	// RateLimited (20-29)
+	SuspendedService =  entity.DataError{ ID: 20, Message: "Temporarily suspended service" }
+	UnsupportedFlow = entity.DataError{ ID: 21, Message: "Unsupported flow" }
 
 )
 
@@ -44,36 +50,7 @@ func SetLanguage(lang string) error{
 		return nil
 	}
 
-
-	absPath, err := filepath.Abs("./")
-    if err != nil {
-		// language not supported (lang="xx")
-		// language file does not exist (delete)
-		logger.Error("Error path", err)
-        return err
-    }
-
-	logger.Info("directorio raiz de Actions: " + absPath)
-
-
-	relPath := "/internal/app/i18n/locales/" + lang +".json"
-	filePath := ""
-	pos := strings.Index( absPath, basePath)
-	if pos != -1 {
-		afterBasePath := absPath[pos + len(basePath):]
-		newPos := strings.Index( afterBasePath, "i18n")
-		if newPos != -1 {
-			relPath = "/" + afterBasePath[: newPos + len("i18n")] + "/locales/" + lang +".json"
-		}
-	  	absPath = absPath[:pos] + basePath
-	  	filePath = absPath + relPath
-   } else {
-		logger.Error("Error absPath: " + absPath , err)
-        return nil
-   }
-
-
-   logger.Info("archivo path : " + filePath)
+	filePath:= getPathofFile() + lang +".json"
 
 	bundle := i18n.NewBundle(supportedLang[lang])	
 
@@ -97,6 +74,27 @@ func SetLanguage(lang string) error{
 	}
 
 
+	Minutes, err  = localizer.Localize(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID: "Minutes",
+			Other: "Minutes",
+		},
+	})
+	if err != nil {
+		return err
+	}
+
+	Seconds, err  = localizer.Localize(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID: "Seconds",
+			Other: "MessageMissing key is not in the file of language",
+		},
+	})
+	if err != nil {
+		return err
+	}
+
+
 	NotError.Message, err  = localizer.Localize(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
 			ID: "NotError",
@@ -106,6 +104,17 @@ func SetLanguage(lang string) error{
 	if err != nil {
 		return err
 	}
+
+	InternalServerError.Message, err  = localizer.Localize(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID: "InternalServerError",
+			Other: "Internal server error",
+		},
+	})
+	if err != nil {
+		return err
+	}
+
 
 	ErrorMiddlewareQueryParams.Message, err  = localizer.Localize(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
@@ -118,6 +127,63 @@ func SetLanguage(lang string) error{
 	}
 
 
+	SuspendedService.Message, err  = localizer.Localize(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID: "SuspendedService",
+			Other: "Temporarily suspended service",
+		},
+	})
+	if err != nil {
+		return err
+	}
+
+	UnsupportedFlow.Message, err  = localizer.Localize(&i18n.LocalizeConfig{
+		DefaultMessage: &i18n.Message{
+			ID: "UnsupportedFlow",
+			Other: "Temporarily suspended service",
+		},
+	})
+	if err != nil {
+		return err
+	}
+
 
 	return err
+}
+
+
+
+func getPathofFile()(string){
+
+	dir, err := os.Getwd()
+	if err != nil {
+		logger.Error("Error directory i18n:", err)
+		return ""
+	}
+
+	fileName := "en.json"
+	path := ""
+
+	// Llamada a la función Walk para buscar el archivo
+	err = filepath.Walk(dir, func(ruta string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+			
+		// Verificar si el nombre del archivo coincide
+		if info.Name() == fileName {
+			path = ruta
+			path = path[ : len(path) - len(fileName)]
+		}
+		
+		
+		return nil
+	})
+
+	if err != nil {
+		logger.Error("Error i18n file Path:", err)
+	}
+
+	return path
+
 }
