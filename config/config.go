@@ -16,7 +16,7 @@ var jsonString = `{
         "goenv": ""
     },
     "kvs": {
-        "addr": "localhost:6379",
+        "addr": "",
         "password": "",
         "db": 0
     },
@@ -80,8 +80,8 @@ func LoadConfig() error {
     if App.Server.Port == "" {
 		App.Server.Port = "8080"
 	}
-
-	App.Kvs.Addr = os.Getenv("REDIS_ADD")
+    
+	App.Kvs.Addr = os.Getenv("REDIS_ADDR")
     App.Kvs.Password = os.Getenv("REDIS_PASSWORD")
     kvsDb := os.Getenv("REDIS_DB")
     if kvsDb == "" {
