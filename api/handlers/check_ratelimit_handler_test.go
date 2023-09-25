@@ -1,17 +1,17 @@
 package handlers
 
 import (
-	/*
+
 	"github.com/stretchr/testify/assert"
 	"testing"
 
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/http/httptest"
-	*/
+
 )
 
-/*
+
 // ********** Unit Test ***********************
 var basePath = "/test"
 
@@ -47,4 +47,3 @@ func Skip_TestFlowNotSupported(t *testing.T) {
 	assert.Equal(t, http.StatusUnauthorized, resp.Code)
 
 }
-*/

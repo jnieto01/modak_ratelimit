@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	/*
+	
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"github.com/gin-gonic/gin"
@@ -9,12 +9,12 @@ import (
 	"net/http/httptest"
 
 	"modak_ratelimit/internal/app/entity"
-	*/
+	
 
 )
 
 // Happy Path
-/*
+
 func Skip_TestNotificacionsService(t *testing.T) {
 
 	r := gin.Default()
@@ -38,6 +38,6 @@ func Skip_TestNotificacionsService(t *testing.T) {
 	assert.Equal(t, http.StatusOK, resp.Code)
 
 }
-*/
+
 
 // Boundary cases
