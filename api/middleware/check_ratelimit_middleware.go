@@ -1,6 +1,7 @@
 package middleware
 
 import (
+
 	"github.com/gin-gonic/gin"
 	"gopkg.in/go-playground/validator.v9"
 	"net/http"
@@ -29,6 +30,7 @@ func CheckRateLimit() gin.HandlerFunc {
 		//	Validation of input data
 		//****************************/
 		v := validator.New()
+
 		if err := v.Struct(data); err != nil {
 			logger.Error("Middleware error:", err)
 
@@ -56,6 +58,7 @@ func CheckRateLimit() gin.HandlerFunc {
 				return
 			}
 		*/
+
 
 		c.Next()
 	}

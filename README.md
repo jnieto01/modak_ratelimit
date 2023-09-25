@@ -1,4 +1,5 @@
 # Challenge of Rate limited for Modak
+
 It is a rate limited  microservice that can be implemented by any other service in any language through an API. The client uses a GET to know if it is available to continue. It send the flow identification,  transaction type and user identification for example (flow_id="Notifications", type="News" and user_id="123"). For internationalization purposes, optional language support is included for message adjustment.
 
 For store data it use KVS called Redis (https://redis.io/). It is a NoSQL database that provide fast access to data and high performance 
@@ -54,7 +55,7 @@ docker rm modak-container
 ```
 docker stop modak-redis-container
 docker rm modak-redis-container
-```
+
 
 
 <br/>
@@ -72,6 +73,7 @@ docker rm modak-redis-container
 - Handle Secrets for CI (GitHub Actions)
 - Setting Docker with environment variables
 - Support api version for microservice 
+
 
 
 <br/>
@@ -235,3 +237,4 @@ Once the release is ready for deployment, merge the release branch into main and
 
 - Use of Tags
 To mark specific versions in master, use Git tags. For example, v1.0.0.
+

@@ -1,6 +1,7 @@
 package logger
 
 import (
+
 	"github.com/stretchr/testify/assert"
 	"testing"
 
@@ -40,9 +41,11 @@ func TestSetupOut(t *testing.T) {
 	assert.True(t, ok)
 	assert.True(t, formatter.FullTimestamp)
 	assert.Equal(t, "2006-01-02 15:04:05", formatter.TimestampFormat)
+
 }
 
 func TestInfo(t *testing.T) {
+
 
 	oldOutput := log.Out
 	defer func() { log.Out = oldOutput }()
@@ -52,10 +55,12 @@ func TestInfo(t *testing.T) {
 
 	Info("This is an info message")
 
+
 	logOutput := buf.String()
 	assert.Contains(t, logOutput, "This is an info message")
 
 }
+
 
 func TestError(t *testing.T) {
 
@@ -68,14 +73,17 @@ func TestError(t *testing.T) {
 	err := errors.New("Test error")
 	Error("This is an error message", err)
 
+
 	logOutput := buf.String()
 	assert.Contains(t, logOutput, "This is an error message")
 }
+
 
 func TestIntegration(t *testing.T) {
 
 	var buf bytes.Buffer
 	log.Out = &buf
+
 
 	Info("Testing started")
 
@@ -94,3 +102,4 @@ func TestIntegration(t *testing.T) {
 	defer file.Close()
 
 }
+

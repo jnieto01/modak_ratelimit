@@ -1,6 +1,7 @@
 package logger
 
 import (
+
 	"github.com/sirupsen/logrus"
 	"os"
 )
@@ -13,10 +14,12 @@ func init() {
 	setupOut()
 }
 
+
 func setupOut() {
 	log.Out = os.Stdout
 	level := logrus.DebugLevel
 	if os.Getenv("GO_ENV") == "PROD" {
+
 		level = logrus.InfoLevel
 	}
 
@@ -26,6 +29,7 @@ func setupOut() {
 		TimestampFormat: "2006-01-02 15:04:05",
 	}
 }
+
 
 func Info(message string) {
 	log.Info(message)

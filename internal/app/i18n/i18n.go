@@ -7,11 +7,9 @@ import (
 	"path/filepath"
 	"os"
 
-
 	"modak_ratelimit/internal/app/entity"
 	"modak_ratelimit/internal/app/utils/logger"
-	
-	
+
 )
 
 
@@ -24,6 +22,7 @@ var (
 	}  
 
 	MessageMissing = entity.DataError{ ID: -1, Message: "MessageMissing key is not in the file of language" }
+
 	Minutes = " (Minutes) "
     Seconds = " (Seconds)"
 
@@ -37,6 +36,7 @@ var (
 	// RateLimited (20-29)
 	SuspendedService =  entity.DataError{ ID: 20, Message: "Temporarily suspended service" }
 	UnsupportedFlow = entity.DataError{ ID: 21, Message: "Unsupported flow" }
+
 )
 
 
@@ -73,6 +73,7 @@ func SetLanguage(lang string) error{
 		return err
 	}
 
+
 	Minutes, err  = localizer.Localize(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
 			ID: "Minutes",
@@ -92,6 +93,7 @@ func SetLanguage(lang string) error{
 	if err != nil {
 		return err
 	}
+
 
 	NotError.Message, err  = localizer.Localize(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
@@ -124,6 +126,7 @@ func SetLanguage(lang string) error{
 		return err
 	}
 
+
 	SuspendedService.Message, err  = localizer.Localize(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
 			ID: "SuspendedService",
@@ -143,8 +146,6 @@ func SetLanguage(lang string) error{
 	if err != nil {
 		return err
 	}
-
-
 
 
 	return err
@@ -184,4 +185,5 @@ func getPathofFile()(string){
 	}
 
 	return path
+
 }

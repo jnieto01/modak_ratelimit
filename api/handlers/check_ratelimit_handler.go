@@ -1,6 +1,7 @@
 package handlers
 
 import (
+
 	"github.com/gin-gonic/gin"
 	"net/http"
 
@@ -40,3 +41,4 @@ func CheckRateLimit(c *gin.Context) {
 	c.JSON(response.Status, response.Data)
 
 }
+

@@ -9,6 +9,7 @@ import (
 
 //Boundary cases
 
+
 func TestSetLanguage(t *testing.T) {
 	err := SetLanguage("en")
 	assert.Nil(t, err)
@@ -29,6 +30,7 @@ func TestLoadEmpty(t *testing.T) {
 }
 
 func TestLangFile(t *testing.T) {
+
 	// language not supported
 	// language file does not exist
 	err := SetLanguage("ar")
@@ -64,3 +66,4 @@ func TestLoadSpanish(t *testing.T) {
 	assert.Equal(t, "", NotError.Message, "Default valut must be: ")
 	assert.Equal(t, "Error en los parametros de la solicitud", ErrorMiddlewareQueryParams.Message, "Default valut must be: Error en los parametros de la solicitud")
 }
+

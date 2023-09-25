@@ -3,6 +3,7 @@ module modak_ratelimit
 go 1.18
 
 require (
+
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/nicksnyder/go-i18n/v2 v2.2.1

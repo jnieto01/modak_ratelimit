@@ -1,6 +1,5 @@
 package entity
 
-
 type InputData struct {
 	FlowID string `json:"flow_id" validate:"required,max=50,alphanum"`
     UserID string `json:"user_id" validate:"required,max=50,alphanum"`

@@ -1,6 +1,7 @@
 package router
 
 import (
+
 	"github.com/gin-gonic/gin"
 	"net/http"
 
@@ -14,10 +15,12 @@ func MapURL(router *gin.Engine) {
 
 	logger.Info("Start router service")
 
+
 	// Add health check
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(http.StatusOK, "Server is running well")
 	})
+
 
 	// Supports version increment for endpoint
 	v1 := router.Group("/v1")
@@ -27,3 +30,4 @@ func MapURL(router *gin.Engine) {
 	}
 
 }
+

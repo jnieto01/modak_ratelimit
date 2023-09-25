@@ -10,6 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+
     env:
       PORT: 8080
       GO_ENV: DEV
@@ -17,6 +18,7 @@ jobs:
       REDIS_PASSWORD: 
       REDIS_DB: 0
     
+
 
     steps:
       - name: Checkout repository
@@ -42,9 +44,12 @@ jobs:
 
       - name: Check coverage threshold
         run: |
+
           COVERAGE_THRESHOLD=30  # 30% just for example
           ACTUAL_COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | sed 's/%//')
           if [ "$(echo "$ACTUAL_COVERAGE >= $COVERAGE_THRESHOLD" | bc -l)" -ne 1 ]; then
             echo "Error: coverage is less than desired ($ACTUAL_COVERAGE% < $COVERAGE_THRESHOLD%)."
             exit 1
+
           fi
+
