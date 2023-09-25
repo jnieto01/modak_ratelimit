@@ -1,0 +1,11 @@
+
+{
+    "NotError": "",
+    "ErrorMiddlewareQueryParams": "Error en los parametros de la solicitud",
+    "SuspendedService" : "Servicio suspendido temporalmente por: ",
+    "Minutes": " (Minutos) ",
+    "Seconds": " (Segundos)",
+    "UnsupportedFlow" : "Flujo no soportado" , 
+    "InternalServerError": "Error interno del servidor" 
+    
+}
