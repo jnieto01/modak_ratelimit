@@ -20,28 +20,36 @@ For store data it use KVS called Redis (https://redis.io/). It is a NoSQL databa
 
 ## Installation
 
-- Install Docker (https://www.docker.com)
 
-- Install DB (Redis) from docker 
+
+- 1) Install Docker (https://www.docker.com)
+
+- 2) Create the network for communication between docker container. This step is important for communication between the application and the kvs
 ```
- docker run -d --name modak-redis-container -p 6379:6379 redis
+ docker network create modak-red-docker
 ```
 
-- Check if Redis is running : You can see your container "modak-redis-container" on the list
+- 3) Install DB (Redis) from docker 
+```
+ docker run --network modak-red-docker -d --name modak-redis-container -p 6379:6379 redis
+```
+
+- 4) Check if Redis is running : You can see your container "modak-redis-container" on the list
 ```
  docker ps
 ```
  
-- Build the app imagen docker
+- 5) Build the app imagen docker
 ```
  docker build -t modak-ratelimit .
 ```
 
-- Execute app container 
+- 6) Execute app container 
 ```
-docker run --name modak-container -p 8080:8080 modak-ratelimit
+docker run --network modak-red-docker --name modak-container -p 8080:8080 modak-ratelimit
 ```
 
+ 
 
 When you're done with the test app:
 

@@ -4,7 +4,7 @@ FROM golang:latest
 # Environment variables
 ENV PORT="8080" \
     GO_ENV="DEV" \
-    REDIS_ADDR="localhost:6379" \
+    REDIS_ADDR="modak-redis-container:6379" \
     REDIS_PASSWORD="" \
     REDIS_DB="0"
 
