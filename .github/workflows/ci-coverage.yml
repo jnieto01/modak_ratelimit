@@ -1,0 +1,50 @@
+name: CI & Coverage
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      PORT: 8080
+      GO_ENV: DEV
+      REDIS_ADDR: localhost:6379
+      REDIS_PASSWORD: 
+      REDIS_DB: 0
+    
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3 
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.18'
+
+
+      - name: Run and test with coverage
+        run: |
+          go test -coverprofile=coverage.out ./...
+          go tool cover -html=coverage.out -o coverage.html
+
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+
+      - name: Check coverage threshold
+        run: |
+          COVERAGE_THRESHOLD=30  # 30% just for example
+          ACTUAL_COVERAGE=$(go tool cover -func=coverage.out | grep total | awk '{print $3}' | sed 's/%//')
+          if [ "$(echo "$ACTUAL_COVERAGE >= $COVERAGE_THRESHOLD" | bc -l)" -ne 1 ]; then
+            echo "Error: coverage is less than desired ($ACTUAL_COVERAGE% < $COVERAGE_THRESHOLD%)."
+            exit 1
+          fi
