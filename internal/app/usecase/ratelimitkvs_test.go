@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"testing"
 
-	//"modak_ratelimit/config"
+	"modak_ratelimit/config"
 	"modak_ratelimit/internal/app/entity"
-	//"modak_ratelimit/internal/app/utils/kvs"
+	"modak_ratelimit/internal/app/utils/kvs"
 )
 
 // Happy Path
 // This unit test requires redis docker to be running
-/*
+
 func Skip_TestRateLimit(t *testing.T) {
 
 	response := &entity.Response{
@@ -64,7 +64,7 @@ func Skip_TestRateLimit(t *testing.T) {
 	assert.Nil(t, err)
 
 }
-*/
+
 
 func TestInternalError(t *testing.T) {
 	response := &entity.Response{
