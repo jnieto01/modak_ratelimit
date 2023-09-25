@@ -23,19 +23,10 @@ For store data it use KVS called Redis (https://redis.io/). It is a NoSQL databa
 
 - Install Docker (https://www.docker.com)
 
--  Create the network for communication between docker container. This step is important for communication between the application and the kvs
-```
- docker network create modak-red-docker
-```
 
--  Install DB (Redis) from docker 
+-  Install DB (Redis) to local 
 ```
- docker run --network modak-red-docker -d --name modak-redis-container -p 6379:6379 redis
-```
-
--  Check if Redis is running : You can see your container "modak-redis-container" on the list
-```
- docker ps
+ docker pull redis
 ```
  
 -  Build the app imagen docker
@@ -45,23 +36,17 @@ For store data it use KVS called Redis (https://redis.io/). It is a NoSQL databa
 
 -  Execute app container 
 ```
-docker run --network modak-red-docker --name modak-container -p 8080:8080 modak-ratelimit
+docker-compose up  
 ```
 
- 
+Now you are ready to use the application....
+
 
 When you're done with the test app:
 
 - Stop and Remove the container 
 ```
-docker stop modak-container
-docker rm modak-container
-```
-
-- Stop and Remove the Redis 
-```
-docker stop modak-redis-container
-docker rm modak-redis-container
+ docker-compose down
 ```
 
 
@@ -75,7 +60,6 @@ docker rm modak-redis-container
 - Database: KVS (Redis)
 - CI with coverage. (See ci-coverage.yml) ( 30% just for example)
 - Unit Test + Integration test. Load test and Regression test were not developed for the challenge. (see  [Suggestion](#suggestion) )
-- All unit tests related to kvs (redis) were commented to avoid problems with CI. However, each test was satisfactorily tested locally.
 - Integration with codecov for analysis of coverage (https://app.codecov.io/gh/jnieto01/modak_ratelimit/tree/develop)
 - Handle Secrets for CI (GitHub Actions)
 - Setting Docker with environment variables
